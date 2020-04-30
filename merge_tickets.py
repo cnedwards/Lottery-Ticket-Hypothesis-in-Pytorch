@@ -85,16 +85,60 @@ def main(args, ITE=0):
         print("\nWrong Model choice\n")
         exit()
 
-    # Weight Initialization
-    model.apply(weight_init)
+    tests = args.ticket_folders.split(',')
+    
+    #Load stuff here:
+    #First get the different initial weights
+    init_weights = {}
+    init_masks = {}
+    global mask 
+    
+    for t in tests:
+        init_weights[t] = torch.load(f"{os.getcwd()}/{t}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar").state_dict()
 
-    # Copying and Saving Initial State
-    initial_state_dict = copy.deepcopy(model.state_dict())
-    utils.checkdir(f"{os.getcwd()}/{args.run_folder}/saves/{args.arch_type}/{args.dataset}/")
-    torch.save(model, f"{os.getcwd()}/{args.run_folder}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar")
+    #print(init_weights)
 
-    # Making Initial Mask
-    make_mask(model)
+    #Load masks
+    for t in tests:
+        with open(f"{os.getcwd()}/{t}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_final.pkl",'rb') as f:
+            init_masks[t] = pickle.load(f)
+
+    #print(init_masks)
+            
+    create_zeros_mask(model)
+    
+    #Create mask:
+    for t in tests:
+        apply_mask_to(model, init_masks[t])
+    
+    #Create initial state dict by combining dicts:
+    initial_state_dict = combine_state_dicts(model, tests, init_weights, init_masks)
+
+    #Test print if the state dict is a mix:
+    #for k, param in model.named_parameters(): 
+    #    print(initial_state_dict[k] == init_weights[tests[0]][k])
+    #    break
+    
+    
+    
+    #print('\n\n\n')
+    #print(mask)
+    
+    
+    #mask = mask.astype(float32)    #might need to convert the mask back to float32 but not sure. If this is the case, create a new function to go through the list
+            
+    
+
+    # Saving Initial State
+    utils.checkdir(f"{os.getcwd()}/{args.output_folder}/saves/{args.arch_type}/{args.dataset}/")
+    torch.save(model, f"{os.getcwd()}/{args.output_folder}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar")
+
+    # Load weights
+    model.load_state_dict(initial_state_dict)
+    
+    #Apply mask:
+    original_initialization(mask, initial_state_dict)
+    
 
     # Optimizer and Loss
     optimizer = torch.optim.Adam(model.parameters(), weight_decay=1e-4)
@@ -108,7 +152,7 @@ def main(args, ITE=0):
     # NOTE First Pruning Iteration is of No Compression
     bestacc = 0.0
     best_accuracy = 0
-    ITERATION = args.prune_iterations
+    ITERATION = 1#args.prune_iterations     #This was set to 1 here because we aren't doing any pruning just merging
     comp = np.zeros(ITERATION,float)
     bestacc = np.zeros(ITERATION,float)
     step = 0
@@ -124,21 +168,6 @@ def main(args, ITE=0):
             prune_by_percentile(args.prune_percent, resample=resample, reinit=reinit)
             if reinit:
                 model.apply(weight_init)
-                #if args.arch_type == "fc1":
-                #    model = fc1.fc1().to(device)
-                #elif args.arch_type == "lenet5":
-                #    model = LeNet5.LeNet5().to(device)
-                #elif args.arch_type == "alexnet":
-                #    model = AlexNet.AlexNet().to(device)
-                #elif args.arch_type == "vgg16":
-                #    model = vgg.vgg16().to(device)  
-                #elif args.arch_type == "resnet18":
-                #    model = resnet.resnet18().to(device)   
-                #elif args.arch_type == "densenet121":
-                #    model = densenet.densenet121().to(device)   
-                #else:
-                #    print("\nWrong Model choice\n")
-                #    exit()
                 step = 0
                 for name, param in model.named_parameters():
                     if 'weight' in name:
@@ -165,8 +194,8 @@ def main(args, ITE=0):
                 # Save Weights
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
-                    utils.checkdir(f"{os.getcwd()}/{args.run_folder}/saves/{args.arch_type}/{args.dataset}/")
-                    torch.save(model,f"{os.getcwd()}/{args.run_folder}/saves/{args.arch_type}/{args.dataset}/{_ite}_model_{args.prune_type}.pth.tar")
+                    utils.checkdir(f"{os.getcwd()}/{args.output_folder}/saves/{args.arch_type}/{args.dataset}/")
+                    torch.save(model,f"{os.getcwd()}/{args.output_folder}/saves/{args.arch_type}/{args.dataset}/{_ite}_model_{args.prune_type}.pth.tar")
 
             # Training
             loss = train(model, train_loader, optimizer, criterion)
@@ -197,18 +226,18 @@ def main(args, ITE=0):
         plt.grid(color="gray") 
         ax = plt.gca()
         ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-        utils.checkdir(f"{os.getcwd()}/{args.run_folder}/plots/lt/{args.arch_type}/{args.dataset}/")
-        plt.savefig(f"{os.getcwd()}/{args.run_folder}/plots/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_LossVsAccuracy_{comp1}.png", dpi=1200) 
+        utils.checkdir(f"{os.getcwd()}/{args.output_folder}/plots/lt/{args.arch_type}/{args.dataset}/")
+        plt.savefig(f"{os.getcwd()}/{args.output_folder}/plots/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_LossVsAccuracy_{comp1}.png", dpi=1200) 
         plt.close()
 
         # Dump Plot values
-        utils.checkdir(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
-        all_loss.dump(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
-        all_accuracy.dump(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
+        utils.checkdir(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
+        all_loss.dump(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
+        all_accuracy.dump(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
         
         # Dumping mask
-        utils.checkdir(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
-        with open(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
+        utils.checkdir(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
+        with open(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
             pickle.dump(mask, fp)
         
         # Making variables into 0
@@ -219,17 +248,12 @@ def main(args, ITE=0):
         all_accuracy_plot.append(np.zeros(args.end_iter,float))
 
     # Dumping Values for Plotting
-    utils.checkdir(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
-    comp.dump(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_compression.dat")
-    bestacc.dump(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_bestaccuracy.dat")
-
-    #Dump a final mask:
-    utils.checkdir(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
-    with open(f"{os.getcwd()}/{args.run_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_final.pkl", 'wb') as fp:
-        pickle.dump(mask, fp)
-    
+    utils.checkdir(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/")
+    comp.dump(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_compression.dat")
+    bestacc.dump(f"{os.getcwd()}/{args.output_folder}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_bestaccuracy.dat")
 
     # Plotting
+    '''
     a = np.arange(args.prune_iterations)
     plt.plot(a, bestacc, c="blue", label="Winning tickets") 
     plt.title(f"Test Accuracy vs Unpruned Weights Percentage ({args.dataset},{args.arch_type})") 
@@ -242,7 +266,8 @@ def main(args, ITE=0):
     plt.tight_layout()
     utils.checkdir(f"{os.getcwd()}/{args.run_folder}/plots/lt/{args.arch_type}/{args.dataset}/")
     plt.savefig(f"{os.getcwd()}/{args.run_folder}/plots/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_AccuracyVsWeights.png", dpi=1200) 
-    plt.close()         
+    plt.close()      
+    '''    
 
     ''' Might add overlayed plots later...
     plt.figure()
@@ -321,6 +346,52 @@ def prune_by_percentile(percent, resample=False, reinit=False,**kwargs):
                 step += 1
         step = 0
 
+
+#Combine the state dicts with the primary_key as the base. We will use the first string in tests as the primary key.
+def combine_state_dicts(model, tests, init_weights, init_masks):
+    initial_state_dict = copy.deepcopy(init_weights[tests[0]])
+    initial_state_dict_np = {}
+    
+    #Get numpy version first
+    for k, param in model.named_parameters(): 
+        if 'weight' in k:
+            initial_state_dict_np[k] = initial_state_dict[k].cpu().numpy()
+    
+    for t in reversed(tests):
+        step = 0
+        for k, param in model.named_parameters(): 
+            if 'weight' in k:
+                #if step == 1:
+                #print(t)
+                #Get a numpy version of the weights we are applying:
+                weights_t_np = init_weights[t][k].cpu().numpy()
+                #print(initial_state_dict_np[k],'\n\n')
+                #First zero out the mapped things:
+                initial_state_dict_np[k] *= np.invert(init_masks[t][step].astype(bool))
+                #print(initial_state_dict_np[k],'\n\n')
+                #print(init_masks[t][step] * weights_t_np,'\n\n')
+                #Now add the new weight there:
+                initial_state_dict_np[k] += init_masks[t][step] * weights_t_np
+                #print(initial_state_dict_np[k],'\n\n')
+                #print('\n\n\n\n')
+                step += 1
+    
+    
+            
+    #Now put it back as a tensor
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    
+    step = 0
+    for k, param in model.named_parameters(): 
+            if 'weight' in k:
+                initial_state_dict[k] = torch.from_numpy(initial_state_dict_np[k]).to(device)
+                step += 1
+            
+    return initial_state_dict
+    
+            
+
+
 # Function to make an empty mask of the same size as the model
 def make_mask(model):
     global step
@@ -335,6 +406,33 @@ def make_mask(model):
         if 'weight' in name:
             tensor = param.data.cpu().numpy()
             mask[step] = np.ones_like(tensor)
+            step = step + 1
+    step = 0
+    
+def create_zeros_mask(model):
+    global step
+    global mask
+    step = 0
+    for name, param in model.named_parameters(): 
+        if 'weight' in name:
+            step = step + 1
+    mask = [None]* step 
+    step = 0
+    for name, param in model.named_parameters(): 
+        if 'weight' in name:
+            tensor = param.data.cpu().numpy()
+            mask[step] = np.zeros_like(tensor,dtype=bool)
+            step = step + 1
+    step = 0
+    
+#Apply the weights turned on in new_mask to mask. mask should be set as all zeros first.
+def apply_mask_to(model, new_mask):
+    global step
+    global mask
+    step = 0
+    for name, param in model.named_parameters(): 
+        if 'weight' in name:
+            mask[step] = mask[step] | new_mask[step].astype(bool)
             step = step + 1
     step = 0
 
@@ -439,8 +537,8 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121")
     parser.add_argument("--prune_percent", default=10, type=int, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=35, type=int, help="Pruning iterations count")
-    parser.add_argument("--run_folder", default="A0", type=str, help="Set the folder for saving this run.")
+    parser.add_argument("--ticket_folders", default="A0", type=str, help="Set the folders to load tickets from. Seperate with commas.")
+    parser.add_argument("--output_folder", default="merge_result", type=str, help="Set the folder to store results in.")
 
     
     args = parser.parse_args()
@@ -453,8 +551,8 @@ if __name__=="__main__":
     #FIXME resample
     resample = False
 
-    utils.checkdir(f"{os.getcwd()}/{args.run_folder}/")
-    sys.stdout = open(f"{os.getcwd()}/{args.run_folder}/output.txt", 'w') #Store output in a file instead
+    utils.checkdir(f"{os.getcwd()}/{args.output_folder}/")
+    sys.stdout = open(f"{os.getcwd()}/{args.output_folder}/output.txt", 'w') #Store output in a file instead
 
     # Looping Entire process
     #for i in range(0, 5):

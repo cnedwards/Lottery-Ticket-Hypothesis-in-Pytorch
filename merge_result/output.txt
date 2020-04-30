@@ -1,0 +1,18 @@
+classifier.0.weight torch.Size([300, 784])
+classifier.0.bias torch.Size([300])
+classifier.2.weight torch.Size([100, 300])
+classifier.2.bias torch.Size([100])
+classifier.4.weight torch.Size([10, 100])
+classifier.4.bias torch.Size([10])
+
+--- Pruning Level [1:0/1]: ---
+classifier.0.weight  | nonzeros =  226326 /  235200 ( 96.23%) | total_pruned =    8874 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   28984 /   30000 ( 96.61%) | total_pruned =    1016 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     961 /    1000 ( 96.10%) | total_pruned =      39 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 256681, pruned : 9929, total: 266610, Compression rate :       1.04x  (  3.72% pruned)
+Accuracy: 18.31 Loss: 0.3969631493091583
+Accuracy: 92.51 Loss: 0.1494983285665512
+Accuracy: 93.95 Loss: 0.2149180918931961
