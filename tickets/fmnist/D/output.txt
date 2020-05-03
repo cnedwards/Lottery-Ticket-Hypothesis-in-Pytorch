@@ -1,0 +1,296 @@
+classifier.0.weight torch.Size([300, 784])
+classifier.0.bias torch.Size([300])
+classifier.2.weight torch.Size([100, 300])
+classifier.2.bias torch.Size([100])
+classifier.4.weight torch.Size([10, 100])
+classifier.4.bias torch.Size([10])
+
+--- Pruning Level [1:0/22]: ---
+classifier.0.weight  | nonzeros =  235200 /  235200 (100.00%) | total_pruned =       0 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   30000 /   30000 (100.00%) | total_pruned =       0 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =    1000 /    1000 (100.00%) | total_pruned =       0 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 266610, pruned : 0, total: 266610, Compression rate :       1.00x  (  0.00% pruned)
+Accuracy: 17.08 Loss: 0.6089105010032654
+Accuracy: 80.6 Loss: 0.4516126215457916
+Accuracy: 82.47 Loss: 0.5000094175338745
+Accuracy: 82.15 Loss: 0.41680052876472473
+Accuracy: 83.0 Loss: 0.5129173994064331
+Accuracy: 81.74 Loss: 0.43903952836990356
+Accuracy: 83.94 Loss: 0.3755466639995575
+Accuracy: 84.2 Loss: 0.5541740655899048
+Accuracy: 84.47 Loss: 0.36757364869117737
+Accuracy: 84.16 Loss: 0.22763875126838684
+Accuracy: 84.43 Loss: 0.3939187228679657
+Accuracy: 84.82 Loss: 0.3155898451805115
+Accuracy: 84.43 Loss: 0.44577255845069885
+Accuracy: 85.42 Loss: 0.2814512848854065
+Accuracy: 85.16 Loss: 0.4362838566303253
+Accuracy: 84.73 Loss: 0.29362937808036804
+Accuracy: 85.48 Loss: 0.22969946265220642
+Accuracy: 85.31 Loss: 0.3055286109447479
+Accuracy: 85.13 Loss: 0.4067777097225189
+Accuracy: 84.04 Loss: 0.3156849443912506
+
+--- Pruning Level [1:1/22]: ---
+classifier.0.weight  | nonzeros =  211683 /  235200 ( 90.00%) | total_pruned =   23517 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   27000 /   30000 ( 90.00%) | total_pruned =    3000 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     900 /    1000 ( 90.00%) | total_pruned =     100 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 239993, pruned : 26617, total: 266610, Compression rate :       1.11x  (  9.98% pruned)
+Accuracy: 16.88 Loss: 0.543076753616333
+Accuracy: 81.36 Loss: 0.5441628694534302
+Accuracy: 80.93 Loss: 0.5325037240982056
+Accuracy: 83.13 Loss: 0.3053950369358063
+Accuracy: 82.55 Loss: 0.35251665115356445
+Accuracy: 82.26 Loss: 0.33131465315818787
+Accuracy: 84.09 Loss: 0.25015705823898315
+Accuracy: 82.97 Loss: 0.477987676858902
+Accuracy: 84.69 Loss: 0.4256247878074646
+Accuracy: 84.54 Loss: 0.4041595160961151
+Accuracy: 84.96 Loss: 0.3520016074180603
+Accuracy: 84.35 Loss: 0.29872220754623413
+Accuracy: 85.35 Loss: 0.5545587539672852
+Accuracy: 85.16 Loss: 0.44875943660736084
+Accuracy: 83.75 Loss: 0.5175488591194153
+Accuracy: 85.66 Loss: 0.2609158158302307
+Accuracy: 84.45 Loss: 0.3767945170402527
+Accuracy: 85.07 Loss: 0.20129531621932983
+Accuracy: 85.28 Loss: 0.44899359345436096
+Accuracy: 85.55 Loss: 0.28100934624671936
+
+--- Pruning Level [1:2/22]: ---
+classifier.0.weight  | nonzeros =  190514 /  235200 ( 81.00%) | total_pruned =   44686 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   24300 /   30000 ( 81.00%) | total_pruned =    5700 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     810 /    1000 ( 81.00%) | total_pruned =     190 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 216034, pruned : 50576, total: 266610, Compression rate :       1.23x  ( 18.97% pruned)
+Accuracy: 16.49 Loss: 0.6011276245117188
+Accuracy: 80.19 Loss: 0.3680362105369568
+Accuracy: 83.54 Loss: 0.564723551273346
+Accuracy: 82.01 Loss: 0.5199350714683533
+Accuracy: 82.83 Loss: 0.40154752135276794
+Accuracy: 83.54 Loss: 0.35220205783843994
+Accuracy: 84.57 Loss: 0.5088956356048584
+Accuracy: 85.15 Loss: 0.2969258427619934
+Accuracy: 85.13 Loss: 0.2514250576496124
+Accuracy: 84.96 Loss: 0.3331844210624695
+Accuracy: 83.77 Loss: 0.2807469069957733
+Accuracy: 85.29 Loss: 0.4966937005519867
+Accuracy: 84.85 Loss: 0.2935730516910553
+Accuracy: 84.61 Loss: 0.2559509873390198
+Accuracy: 84.44 Loss: 0.4220626652240753
+Accuracy: 84.89 Loss: 0.2616083025932312
+Accuracy: 85.35 Loss: 0.24161583185195923
+Accuracy: 83.65 Loss: 0.2534607946872711
+Accuracy: 85.51 Loss: 0.2680816650390625
+Accuracy: 85.44 Loss: 0.34225377440452576
+
+--- Pruning Level [1:3/22]: ---
+classifier.0.weight  | nonzeros =  171463 /  235200 ( 72.90%) | total_pruned =   63737 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   21870 /   30000 ( 72.90%) | total_pruned =    8130 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     729 /    1000 ( 72.90%) | total_pruned =     271 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 194472, pruned : 72138, total: 266610, Compression rate :       1.37x  ( 27.06% pruned)
+Accuracy: 16.58 Loss: 0.5804190039634705
+Accuracy: 81.95 Loss: 0.38810408115386963
+Accuracy: 81.96 Loss: 0.6530040502548218
+Accuracy: 82.39 Loss: 0.32698553800582886
+Accuracy: 81.77 Loss: 0.2953035533428192
+Accuracy: 83.54 Loss: 0.3024216294288635
+Accuracy: 84.4 Loss: 0.4638514220714569
+Accuracy: 83.71 Loss: 0.27500659227371216
+Accuracy: 84.01 Loss: 0.3673977255821228
+Accuracy: 85.48 Loss: 0.30913349986076355
+Accuracy: 84.65 Loss: 0.49185943603515625
+Accuracy: 85.42 Loss: 0.2881905138492584
+Accuracy: 85.35 Loss: 0.16136689484119415
+Accuracy: 84.85 Loss: 0.3273574113845825
+Accuracy: 84.29 Loss: 0.5116246342658997
+Accuracy: 84.48 Loss: 0.3890562653541565
+Accuracy: 85.14 Loss: 0.40590766072273254
+Accuracy: 84.88 Loss: 0.509293258190155
+Accuracy: 85.34 Loss: 0.1937885731458664
+Accuracy: 85.55 Loss: 0.2741205096244812
+
+--- Pruning Level [1:4/22]: ---
+classifier.0.weight  | nonzeros =  154317 /  235200 ( 65.61%) | total_pruned =   80883 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   19683 /   30000 ( 65.61%) | total_pruned =   10317 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     656 /    1000 ( 65.60%) | total_pruned =     344 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 175066, pruned : 91544, total: 266610, Compression rate :       1.52x  ( 34.34% pruned)
+Accuracy: 17.94 Loss: 0.7076970338821411
+Accuracy: 82.76 Loss: 0.2786783277988434
+Accuracy: 83.07 Loss: 0.5895792841911316
+Accuracy: 84.13 Loss: 0.37250956892967224
+Accuracy: 83.85 Loss: 0.3473869562149048
+Accuracy: 84.48 Loss: 0.39223840832710266
+Accuracy: 84.57 Loss: 0.49060073494911194
+Accuracy: 84.3 Loss: 0.16543452441692352
+Accuracy: 85.34 Loss: 0.37629592418670654
+Accuracy: 83.14 Loss: 0.3154231309890747
+Accuracy: 85.42 Loss: 0.5604127049446106
+Accuracy: 83.76 Loss: 0.23731499910354614
+Accuracy: 84.68 Loss: 0.4702319800853729
+Accuracy: 84.39 Loss: 0.4559656083583832
+Accuracy: 83.77 Loss: 0.2650358974933624
+Accuracy: 84.7 Loss: 0.6102288365364075
+Accuracy: 84.66 Loss: 0.3654595911502838
+Accuracy: 85.61 Loss: 0.5804346203804016
+Accuracy: 84.78 Loss: 0.23669782280921936
+Accuracy: 85.69 Loss: 0.43726444244384766
+
+--- Pruning Level [1:5/22]: ---
+classifier.0.weight  | nonzeros =  138883 /  235200 ( 59.05%) | total_pruned =   96317 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   17714 /   30000 ( 59.05%) | total_pruned =   12286 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     590 /    1000 ( 59.00%) | total_pruned =     410 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 157597, pruned : 109013, total: 266610, Compression rate :       1.69x  ( 40.89% pruned)
+Accuracy: 12.2 Loss: 0.621116578578949
+Accuracy: 77.69 Loss: 0.3910539746284485
+Accuracy: 83.34 Loss: 0.369392991065979
+Accuracy: 83.72 Loss: 0.4646223485469818
+Accuracy: 82.52 Loss: 0.39440372586250305
+Accuracy: 84.1 Loss: 0.3109910190105438
+Accuracy: 84.44 Loss: 0.3564668893814087
+Accuracy: 83.97 Loss: 0.33660703897476196
+Accuracy: 83.16 Loss: 0.45582473278045654
+Accuracy: 84.7 Loss: 0.277286171913147
+Accuracy: 85.47 Loss: 0.527366042137146
+Accuracy: 84.53 Loss: 0.3945590555667877
+Accuracy: 84.68 Loss: 0.5977855324745178
+Accuracy: 84.67 Loss: 0.4862089157104492
+Accuracy: 85.92 Loss: 0.3869975209236145
+Accuracy: 84.61 Loss: 0.42308950424194336
+Accuracy: 85.06 Loss: 0.18162448704242706
+Accuracy: 84.8 Loss: 0.3780113160610199
+Accuracy: 84.61 Loss: 0.28945520520210266
+Accuracy: 85.62 Loss: 0.19463610649108887
+
+--- Pruning Level [1:6/22]: ---
+classifier.0.weight  | nonzeros =  124995 /  235200 ( 53.14%) | total_pruned =  110205 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   15941 /   30000 ( 53.14%) | total_pruned =   14059 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     531 /    1000 ( 53.10%) | total_pruned =     469 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 141877, pruned : 124733, total: 266610, Compression rate :       1.88x  ( 46.78% pruned)
+Accuracy: 17.11 Loss: 0.4942116141319275
+Accuracy: 82.71 Loss: 0.46462032198905945
+Accuracy: 81.14 Loss: 0.48268699645996094
+Accuracy: 83.46 Loss: 0.3317109942436218
+Accuracy: 83.74 Loss: 0.4928014874458313
+Accuracy: 84.62 Loss: 0.29853641986846924
+Accuracy: 83.23 Loss: 0.4353068768978119
+Accuracy: 83.62 Loss: 0.29793819785118103
+Accuracy: 85.05 Loss: 0.2878973186016083
+Accuracy: 85.29 Loss: 0.3241572082042694
+Accuracy: 82.79 Loss: 0.2587585151195526
+Accuracy: 85.47 Loss: 0.3119443953037262
+Accuracy: 84.47 Loss: 0.25309374928474426
+Accuracy: 85.19 Loss: 0.23089207708835602
+Accuracy: 85.39 Loss: 0.34331342577934265
+Accuracy: 85.54 Loss: 0.3684813380241394
+Accuracy: 85.08 Loss: 0.4757159650325775
+Accuracy: 84.78 Loss: 0.45378684997558594
+Accuracy: 84.61 Loss: 0.3764490783214569
+Accuracy: 85.06 Loss: 0.5484278202056885
+
+--- Pruning Level [1:7/22]: ---
+classifier.0.weight  | nonzeros =  112494 /  235200 ( 47.83%) | total_pruned =  122706 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   14347 /   30000 ( 47.82%) | total_pruned =   15653 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     478 /    1000 ( 47.80%) | total_pruned =     522 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 127729, pruned : 138881, total: 266610, Compression rate :       2.09x  ( 52.09% pruned)
+Accuracy: 19.95 Loss: 0.5039764642715454
+Accuracy: 83.44 Loss: 0.45841678977012634
+Accuracy: 83.53 Loss: 0.44931766390800476
+Accuracy: 82.43 Loss: 0.4845801591873169
+Accuracy: 84.61 Loss: 0.3979035019874573
+Accuracy: 81.5 Loss: 0.2653762996196747
+Accuracy: 84.43 Loss: 0.31027698516845703
+Accuracy: 82.67 Loss: 0.5158500075340271
+Accuracy: 84.43 Loss: 0.21562272310256958
+Accuracy: 84.74 Loss: 0.29841041564941406
+Accuracy: 84.91 Loss: 0.29157161712646484
+Accuracy: 85.43 Loss: 0.3436610996723175
+Accuracy: 85.83 Loss: 0.2974834740161896
+Accuracy: 85.34 Loss: 0.5292180776596069
+Accuracy: 85.95 Loss: 0.3403397798538208
+Accuracy: 85.46 Loss: 0.15326577425003052
+Accuracy: 85.22 Loss: 0.33153948187828064
+Accuracy: 84.42 Loss: 0.308452308177948
+Accuracy: 84.64 Loss: 0.38911840319633484
+Accuracy: 84.67 Loss: 0.4044536054134369
+
+--- Pruning Level [1:8/22]: ---
+classifier.0.weight  | nonzeros =  101244 /  235200 ( 43.05%) | total_pruned =  133956 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   12912 /   30000 ( 43.04%) | total_pruned =   17088 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     430 /    1000 ( 43.00%) | total_pruned =     570 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 114996, pruned : 151614, total: 266610, Compression rate :       2.32x  ( 56.87% pruned)
+Accuracy: 25.28 Loss: 0.4700300097465515
+Accuracy: 82.52 Loss: 0.5594922304153442
+Accuracy: 83.11 Loss: 0.5568092465400696
+Accuracy: 84.49 Loss: 0.29077446460723877
+Accuracy: 84.15 Loss: 0.36734357476234436
+Accuracy: 85.03 Loss: 0.4535250961780548
+Accuracy: 83.94 Loss: 0.29987895488739014
+Accuracy: 83.91 Loss: 0.41071367263793945
+Accuracy: 85.44 Loss: 0.42783650755882263
+Accuracy: 83.19 Loss: 0.49051299691200256
+Accuracy: 84.54 Loss: 0.18628740310668945
+Accuracy: 84.76 Loss: 0.457882821559906
+Accuracy: 84.61 Loss: 0.31846681237220764
+Accuracy: 85.03 Loss: 0.27875882387161255
+Accuracy: 84.85 Loss: 0.579017698764801
+Accuracy: 83.08 Loss: 0.31430181860923767
+Accuracy: 85.02 Loss: 0.24110129475593567
+Accuracy: 84.87 Loss: 0.3779914975166321
+Accuracy: 85.26 Loss: 0.38406670093536377
+Accuracy: 83.55 Loss: 0.3612101376056671
+
+--- Pruning Level [1:9/22]: ---
+classifier.0.weight  | nonzeros =   91120 /  235200 ( 38.74%) | total_pruned =  144080 | shape = (300, 784)
+classifier.0.bias    | nonzeros =     300 /     300 (100.00%) | total_pruned =       0 | shape = (300,)
+classifier.2.weight  | nonzeros =   11620 /   30000 ( 38.73%) | total_pruned =   18380 | shape = (100, 300)
+classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =       0 | shape = (100,)
+classifier.4.weight  | nonzeros =     387 /    1000 ( 38.70%) | total_pruned =     613 | shape = (10, 100)
+classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
+alive: 103537, pruned : 163073, total: 266610, Compression rate :       2.58x  ( 61.17% pruned)
+Accuracy: 34.43 Loss: 0.2924724817276001
+Accuracy: 82.95 Loss: 0.6070507764816284
+Accuracy: 83.64 Loss: 0.5026636719703674
+Accuracy: 82.64 Loss: 0.4539588987827301
+Accuracy: 84.96 Loss: 0.2771276831626892
+Accuracy: 83.44 Loss: 0.33060190081596375
+Accuracy: 85.29 Loss: 0.38168826699256897
+Accuracy: 83.9 Loss: 0.4043053090572357
+Accuracy: 82.07 Loss: 0.3143863081932068
+Accuracy: 85.08 Loss: 0.23179396986961365
+Accuracy: 84.72 Loss: 0.3653399348258972
+Accuracy: 85.19 Loss: 0.4603039026260376
+Accuracy: 85.34 Loss: 0.26325520873069763
+Accuracy: 84.8 Loss: 0.4543757140636444
+Accuracy: 85.73 Loss: 0.25674134492874146
+Accuracy: 85.96 Loss: 0.3701343536376953
+Accuracy: 84.84 Loss: 0.177882120013237
+Accuracy: 84.76 Loss: 0.18149207532405853
+Accuracy: 85.36 Loss: 0.3085695207118988
+Accuracy: 85.79 Loss: 0.39425554871559143
