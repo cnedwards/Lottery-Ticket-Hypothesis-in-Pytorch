@@ -81,8 +81,12 @@ def main(args, ITE=0):
     '''
 
     #with open('lt_all_accuracy_11.1.dat', 'rb') as f:
-    dat = [i for i in (os.listdir(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/")) if args.prune_type + "_all_accuracy" in i]
-    dat = dat[0]
+    if args.dat_percent == None:
+        dat = [i for i in (os.listdir(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/")) if args.prune_type + "_all_accuracy" in i]
+        dat = dat[0]
+    else:
+        dat = f"{args.prune_type}_all_accuracy_{args.dat_percent}.dat"
+
     acc = np.load(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/{dat}", allow_pickle=True)
 
     x = np.arange(acc.size)
@@ -106,10 +110,10 @@ def main(args, ITE=0):
         #plt.show()
         
         if '/' in test:
-            utils.checkdir(f"{os.getcwd()}/{args.output_folder}/{test.rsplit('/',1)[0]}")
+            utils.checkdir(f"{os.getcwd()}/{args.output_folder}{args.dat_percent}/{test.rsplit('/',1)[0]}")
         else:
-            utils.checkdir(f"{os.getcwd()}/{args.output_folder}")
-        plt.savefig(f"{os.getcwd()}/{args.output_folder}/{test}.png")
+            utils.checkdir(f"{os.getcwd()}/{args.output_folder}{args.dat_percent}")
+        plt.savefig(f"{os.getcwd()}/{args.output_folder}{args.dat_percent}/{test}.png")
 
         return exp_rate
     
@@ -155,14 +159,15 @@ if __name__=="__main__":
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121")
     parser.add_argument("--ticket_folders", default="A0", type=str, help="Set the folders to load tickets from. Seperate with commas.")
     parser.add_argument("--output_folder", default="merge_result", type=str, help="Set the folder to store results in.")
+    parser.add_argument("--dat_percent", default=None, type=str, help="Specify data level x.y")
 
     
     args = parser.parse_args()
 
     
 
-    utils.checkdir(f"{os.getcwd()}/{args.output_folder}/")
-    sys.stdout = open(f"{os.getcwd()}/{args.output_folder}/output.txt", 'w') #Store output in a file instead
+    utils.checkdir(f"{os.getcwd()}/{args.output_folder}{args.dat_percent}/")
+    sys.stdout = open(f"{os.getcwd()}/{args.output_folder}{args.dat_percent}/output.txt", 'w') #Store output in a file instead
 
     # Looping Entire process
     #for i in range(0, 5):
