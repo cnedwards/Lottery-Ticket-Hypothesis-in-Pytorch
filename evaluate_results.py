@@ -4,6 +4,7 @@ import argparse
 import sys
 import utils
 import pickle
+import numpy as np
 
 #mnist_ticket_path = 'tickets/mnist/'
 #fmnist_ticket_path = 'tickets/fmnist/'
@@ -67,3 +68,16 @@ if __name__ == "__main__":
                 for ticket in results[expType][dataSet][ticketLength].keys():
                     print(f"\t\t\t{ticket}")
                     print(f"\t\t\t\t{results[expType][dataSet][ticketLength][ticket]}")
+                    
+                print(f"\t\t\tAverage")
+                c = []
+                acc = []
+                for v in results[expType][dataSet][ticketLength].values():
+                    ctmp, acctmp = v.split(', ')
+                    c.append(float(ctmp))
+                    acc.append(float(acctmp))
+                avg_c = np.mean(c)
+                avg_acc = np.mean(acc)
+                out = ", ".join([str(avg_c),str(avg_acc)])
+                print(f"\t\t\t\t{out}")
+                    
