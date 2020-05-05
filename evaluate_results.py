@@ -64,7 +64,7 @@ if __name__ == "__main__":
         for dataSet in results[expType].keys():
             print(f"\t{dataSet}")
             for ticketLength in results[expType][dataSet].keys():
-                print(f"\t\t{ticketLength}")
+                print(f"\t\t Ticket Length {ticketLength} : Trials {len(results[expType][dataSet][ticketLength].keys())}")
                 for ticket in results[expType][dataSet][ticketLength].keys():
                     print(f"\t\t\t{ticket}")
                     print(f"\t\t\t\t{results[expType][dataSet][ticketLength][ticket]}")

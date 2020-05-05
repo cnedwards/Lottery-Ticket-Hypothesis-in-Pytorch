@@ -52,12 +52,17 @@ if __name__ == "__main__":
     for dataSet in os.listdir(root):
         results[dataSet] = {}
         for ticket in os.listdir(f"{root}/{dataSet}"):
-            results[dataSet][ticket] = {}
+
+            if ticket[1:] not in results[dataSet].keys():
+                results[dataSet][ticket[1:]] = {}
+
+            results[dataSet][ticket[1:]][ticket] = {}
+
             with open(f"{root}/{dataSet}/{ticket}/output.txt") as f:
                 tmp = f.read().rstrip()
                 tmp = tmp.replace('(', '')
                 tmp = tmp.replace(')', '')
-                results[dataSet][ticket] = tmp
+                results[dataSet][ticket[1:]][ticket] = tmp
 #                    results[dataSet][len(ticket)][ticket] = f.read().rstrip()
 
     if args.output_folder != None:
@@ -67,22 +72,24 @@ if __name__ == "__main__":
 
     for dataSet in results.keys():
         print(f"{dataSet}")
-        for ticket in results[dataSet].keys():
-            print(f"\t{ticket}")
-            print(f"\t\t{results[dataSet][ticket]}")
+        for dataPercent in results[dataSet].keys():
+            print(f"\t{dataPercent}")
+            for ticket in results[dataSet][dataPercent].keys():
+                print(f"\t\t{ticket}")
+                print(f"\t\t\t{results[dataSet][dataPercent][ticket]}")
             #for ticket in results[dataSet][ticketLength]:
             #    print(f"\t\t{ticket}")
                 #print(f"\t\t\t\t{results[dataSet][ticketLength][ticket]}")
                 
-        print(f"\tAverage")
-        c = []
-        acc = []
-        for v in results[dataSet].values():
-            ctmp, acctmp = v.split(', ')
-            c.append(float(ctmp))
-            acc.append(float(acctmp))
-        avg_c = np.mean(c)
-        avg_acc = np.mean(acc)
-        out = ", ".join([str(avg_c),str(avg_acc)])
-        print(f"\t\t{out}")
+            print(f"\tAverage")
+            c = []
+            acc = []
+            for v in results[dataSet][dataPercent].values():
+                ctmp, acctmp = v.split(', ')
+                c.append(float(ctmp))
+                acc.append(float(acctmp))
+            avg_c = np.mean(c)
+            avg_acc = np.mean(acc)
+            out = ", ".join([str(avg_c),str(avg_acc)])
+            print(f"\t\t{out}")
         
