@@ -13,4 +13,3 @@ classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =  
 classifier.4.weight  | nonzeros =     199 /    1000 ( 19.90%) | total_pruned =     801 | shape = (10, 100)
 classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
 alive: 55216, pruned : 211394, total: 266610, Compression rate :       4.83x  ( 79.29% pruned)
-Accuracy: 12.82 Loss: 0.09797561913728714

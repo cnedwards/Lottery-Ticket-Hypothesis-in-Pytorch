@@ -111,7 +111,7 @@ def main(args, ITE=0):
 
         return exp_rate
     
-    print(max(acc))
+    print("Maximum accuracy", max(acc))
     return fit(x,acc), max(acc)#exp. rate, best acc.
 
     # Plotting

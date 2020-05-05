@@ -94,9 +94,18 @@ def main(args, ITE=0):
     global mask 
     
     for t in tests:
-        init_weights[t] = torch.load(f"{os.getcwd()}/{t}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar", map_location=torch.device('cpu')).state_dict()
+        if torch.cuda.is_available():
+            init_weights[t] = torch.load(f"{os.getcwd()}/{t}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar").state_dict()
+        else:
+            init_weights[t] = torch.load(f"{os.getcwd()}/{t}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar",map_location=torch.device('cpu')).state_dict()
 
     #print(init_weights)
+    
+    #Convert to cuda if need be:
+    if torch.cuda.is_available():
+        for t in tests:
+            for k, param in model.named_parameters(): 
+                init_weights[t][k] = init_weights[t][k].cuda()
 
     #Load masks
     for t in tests:
