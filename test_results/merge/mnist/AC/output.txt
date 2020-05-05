@@ -13,3 +13,23 @@ classifier.2.bias    | nonzeros =     100 /     100 (100.00%) | total_pruned =  
 classifier.4.weight  | nonzeros =     202 /    1000 ( 20.20%) | total_pruned =     798 | shape = (10, 100)
 classifier.4.bias    | nonzeros =      10 /      10 (100.00%) | total_pruned =       0 | shape = (10,)
 alive: 55149, pruned : 211461, total: 266610, Compression rate :       4.83x  ( 79.31% pruned)
+Accuracy: 20.84 Loss: 0.2425609529018402
+Accuracy: 93.85 Loss: 0.17358799278736115
+Accuracy: 94.7 Loss: 0.21977797150611877
+Accuracy: 95.29 Loss: 0.06559181213378906
+Accuracy: 95.66 Loss: 0.07884035259485245
+Accuracy: 95.85 Loss: 0.25867897272109985
+Accuracy: 96.01 Loss: 0.13911981880664825
+Accuracy: 96.14 Loss: 0.11367510259151459
+Accuracy: 95.9 Loss: 0.10768810659646988
+Accuracy: 96.16 Loss: 0.033349212259054184
+Accuracy: 96.24 Loss: 0.11276836693286896
+Accuracy: 96.27 Loss: 0.03113245964050293
+Accuracy: 96.39 Loss: 0.09000717848539352
+Accuracy: 96.42 Loss: 0.050460655242204666
+Accuracy: 96.31 Loss: 0.07453130185604095
+Accuracy: 96.34 Loss: 0.09529893845319748
+Accuracy: 96.63 Loss: 0.057045381516218185
+Accuracy: 96.59 Loss: 0.026412582024931908
+Accuracy: 96.58 Loss: 0.03864380344748497
+Accuracy: 96.01 Loss: 0.0814429298043251
