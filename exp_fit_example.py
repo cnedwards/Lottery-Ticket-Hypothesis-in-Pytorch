@@ -81,7 +81,7 @@ def main(args, ITE=0):
     '''
 
     #with open('lt_all_accuracy_11.1.dat', 'rb') as f:
-    if args.dat_percent == None:
+    if args.dat_percent == "":
         dat = [i for i in (os.listdir(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/")) if args.prune_type + "_all_accuracy" in i]
         dat = dat[0]
     else:
@@ -159,7 +159,7 @@ if __name__=="__main__":
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121")
     parser.add_argument("--ticket_folders", default="A0", type=str, help="Set the folders to load tickets from. Seperate with commas.")
     parser.add_argument("--output_folder", default="merge_result", type=str, help="Set the folder to store results in.")
-    parser.add_argument("--dat_percent", default=None, type=str, help="Specify data level x.y")
+    parser.add_argument("--dat_percent", default="", type=str, help="Specify data level x.y")
 
     
     args = parser.parse_args()
