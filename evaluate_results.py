@@ -47,7 +47,11 @@ if __name__ == "__main__":
 
                 results[expType][dataSet][len(ticket)][ticket] = {}
                 with open(f"{root}/{expType}/{dataSet}/{ticket}/output.txt") as f:
-                    results[expType][dataSet][len(ticket)][ticket] = f.read().rstrip()
+                    tmp = f.read().rstrip()
+                    tmp = tmp.replace('(', '')
+                    tmp = tmp.replace(')', '')
+                    results[expType][dataSet][len(ticket)][ticket] = tmp
+#                    results[expType][dataSet][len(ticket)][ticket] = f.read().rstrip()
 
     if args.output_folder != None:
         utils.checkdir(f"{os.getcwd()}/{args.output_folder}/")
