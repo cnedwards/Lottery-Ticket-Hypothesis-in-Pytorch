@@ -111,8 +111,8 @@ def main(args, ITE=0):
 
         return exp_rate
     
-    
-    return fit(x,acc)
+    print(max(acc))
+    return fit(x,acc), max(acc)#exp. rate, best acc.
 
     # Plotting
     '''
