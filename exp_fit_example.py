@@ -81,11 +81,13 @@ def main(args, ITE=0):
     '''
 
     #with open('lt_all_accuracy_11.1.dat', 'rb') as f:
-    acc = np.load(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_11.1.dat", allow_pickle=True)
+    dat = [i for i in (os.listdir(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/")) if args.prune_type + "_all_accuracy" in i]
+    dat = dat[0]
+    acc = np.load(f"{os.getcwd()}/{test}/dumps/lt/{args.arch_type}/{args.dataset}/{dat}", allow_pickle=True)
 
     x = np.arange(acc.size)
     
-    print(x,acc)
+   # print(x,acc)
     
     #Fit and plot from: https://stackoverflow.com/questions/21420792/exponential-curve-fitting-in-scipy/21421137
     
@@ -94,10 +96,10 @@ def main(args, ITE=0):
             return a*np.exp(-c*(x-b))+d
 
         popt, pcov = curve_fit(func, x, acc, [-1,1,4,95])
-        print(popt)
+        #print(popt)
 
         exp_rate = popt[2]
-        print("Rate: ", exp_rate)
+        #print("Rate: ", exp_rate)
 
         plt.plot(x,acc)
         plt.plot(x,func(x,*popt))
@@ -111,7 +113,7 @@ def main(args, ITE=0):
 
         return exp_rate
     
-    print("Maximum accuracy", max(acc))
+    #print("Maximum accuracy", max(acc))
     return fit(x,acc), max(acc)#exp. rate, best acc.
 
     # Plotting
@@ -164,7 +166,7 @@ if __name__=="__main__":
 
     # Looping Entire process
     #for i in range(0, 5):
-    main(args, ITE=1)
+    print(main(args, ITE=1))
 
 
 
