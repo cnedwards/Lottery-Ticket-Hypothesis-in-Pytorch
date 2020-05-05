@@ -8,3 +8,7 @@ python merge_tickets.py --prune_type=lt --arch_type=fc1 --dataset=mnist --prune_
 
 Average merging test:
 python merge_tickets_avg.py --prune_type=lt --arch_type=fc1 --dataset=mnist --prune_percent=10 --end_iter=20 --ticket_folders=tickets/A,tickets/B --output_folder=merge_result_avg
+
+
+Example exponential fitting for speed:
+python .\exp_fit_example.py --prune_type=lt --arch_type=fc1 --dataset=mnist --ticket_folders=tickets/mnist/A --output_folder=plot_out
