@@ -18,6 +18,11 @@ To evaluate results:
 python .\evaluate_results.py --output_folder=testing
 
 
+To evaluate tickets:
+python .\evaluate_tickets.py --generate=True --dat_percent=20.7
+
+To evaluate tickets from already processed data:
+python .\evaluate_tickets.py 
 
 
 
