@@ -74,15 +74,15 @@ if __name__ == "__main__":
             #    print(f"\t\t{ticket}")
                 #print(f"\t\t\t\t{results[dataSet][ticketLength][ticket]}")
                 
-    print(f"\tAverage")
-    c = []
-    acc = []
-    for v in results[dataSet].values():
-        ctmp, acctmp = v.split(', ')
-        c.append(float(ctmp))
-        acc.append(float(acctmp))
-    avg_c = np.mean(c)
-    avg_acc = np.mean(acc)
-    out = ", ".join([str(avg_c),str(avg_acc)])
-    print(f"\t\t{out}")
+        print(f"\tAverage")
+        c = []
+        acc = []
+        for v in results[dataSet].values():
+            ctmp, acctmp = v.split(', ')
+            c.append(float(ctmp))
+            acc.append(float(acctmp))
+        avg_c = np.mean(c)
+        avg_acc = np.mean(acc)
+        out = ", ".join([str(avg_c),str(avg_acc)])
+        print(f"\t\t{out}")
         
