@@ -1,3 +1,4 @@
+#Used to automate the process of processing merged ticket results
 
 import os
 import argparse
@@ -6,12 +7,6 @@ import utils
 import pickle
 import numpy as np
 
-#mnist_ticket_path = 'tickets/mnist/'
-#fmnist_ticket_path = 'tickets/fmnist/'
-#mnist_tickets = os.listdir(mnist_ticket_path)[0:4]
-#fmnist_tickets = os.listdir(fmnist_ticket_path)[0:4]
-
- #python exp_fit_example.py --prune_type=lt --arch_type=fc1 --dataset=mnist --ticket_folders=tickets/mnist/A --output_folder=fitTest
 
 if __name__ == "__main__":
     # Arguement Parser
@@ -21,12 +16,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    #Generate intermediate output files if needed
     if args.generate == "True":
         ticket_folders="test_results"
         for d in os.listdir(ticket_folders):
-            #print(d)
             for v in os.listdir(ticket_folders+"/"+d):
-                #print("\t",v)
                 result_path = "eval_results/" + d + "/" + v + "/"
                 for f in os.listdir(ticket_folders+"/"+d+"/"+v):
                     ticket_path = ticket_folders + "/" + d + "/" + v + "/" + f
@@ -35,6 +29,7 @@ if __name__ == "__main__":
                     print(cmd)
                     os.system(cmd)
 
+    #Parse intermediate output files
     results = {}
     root = "eval_results"
     for expType in os.listdir(root):
@@ -52,8 +47,8 @@ if __name__ == "__main__":
                     tmp = tmp.replace('(', '')
                     tmp = tmp.replace(')', '')
                     results[expType][dataSet][len(ticket)][ticket] = tmp
-#                    results[expType][dataSet][len(ticket)][ticket] = f.read().rstrip()
 
+    #Output results
     if args.output_folder != None:
         utils.checkdir(f"{os.getcwd()}/{args.output_folder}/")
         sys.stdout = open(f"{os.getcwd()}/{args.output_folder}/output.txt", 'w') #Store output in a file instead
